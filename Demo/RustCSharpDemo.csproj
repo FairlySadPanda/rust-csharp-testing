@@ -9,20 +9,20 @@
     </PropertyGroup>
     <Target Name="Rust Build" BeforeTargets="Compile">
         <Exec Command="echo 'Configuration: $(Configuration)'"/>
-        <Exec Condition="'$(Configuration)' == 'Release'" Command="cargo b --release" WorkingDirectory="./calculator"/>
-        <Exec Condition="'$(Configuration)' != 'Release'" Command="cargo b" WorkingDirectory="./calculator"/>
+        <Exec Condition="'$(Configuration)' == 'Release'" Command="cargo b --release" WorkingDirectory="./../Calculator"/>
+        <Exec Condition="'$(Configuration)' != 'Release'" Command="cargo b" WorkingDirectory="./../Calculator"/>
     </Target>
     <ItemGroup>
         <PackageReference Include="Spectre.Console" Version="0.48.1-preview.0.38"/>
-        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' " Include="./calculator/target/$(Configuration)/libcalculator.so">
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' " Include="./../Calculator/target/$(Configuration)/libcalculator.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>libcalculator.so</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' " Include="./calculator/target/$(Configuration)/calculator.dll">
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' " Include="./../Calculator/target/$(Configuration)/calculator.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>calculator.dll</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' " Include="./calculator/target/$(Configuration)/libcalculator.dylib">
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' " Include="./../Calculator/target/$(Configuration)/libcalculator.dylib">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>libcalculator.dylib</TargetPath>
         </ContentWithTargetPath>

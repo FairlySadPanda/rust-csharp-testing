@@ -1,5 +1,8 @@
 // ReSharper disable CheckNamespace
 
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+
 namespace RustCSharpDemo;
 
 /*
@@ -10,7 +13,7 @@ namespace RustCSharpDemo;
 
 public partial class CalculatorWrapper
 {
-    private const string LibraryName = "libcalculator";
+    private const string LIBRARY_NAME = "libcalculator";
 
     private static readonly string[] WindowsDllNames = ["libcalculator", "calculator"];
     private static readonly string[] OsxDllNames = ["libcalculator"];
@@ -18,7 +21,7 @@ public partial class CalculatorWrapper
 
     static CalculatorWrapper()
     {
-        NativeLibrary.SetDllImportResolver(typeof(CalculatorWrapper).Assembly, (name, assembly, path) =>
+        NativeLibrary.SetDllImportResolver(typeof(CalculatorWrapper).Assembly, (_, assembly, path) =>
         {
             string[] dllNames = [];
 
@@ -31,8 +34,6 @@ public partial class CalculatorWrapper
 
             foreach (var dllName in dllNames)
             {
-                Console.WriteLine($"Loading using {dllName}");
-
                 if (NativeLibrary.TryLoad(dllName, assembly, path, out var handle))
                     return handle;
             }
@@ -41,16 +42,16 @@ public partial class CalculatorWrapper
         });
     }
 
-    [LibraryImport(LibraryName, EntryPoint = "add")]
+    [LibraryImport(LIBRARY_NAME, EntryPoint = "add")]
     public static partial int Add(int left, int right);
 
-    [LibraryImport(LibraryName, EntryPoint = "say_hello", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport(LIBRARY_NAME, EntryPoint = "say_hello", StringMarshalling = StringMarshalling.Utf8)]
     public static partial void SayHello(string name);
 
-    [LibraryImport(LibraryName, EntryPoint = "random_point")]
+    [LibraryImport(LIBRARY_NAME, EntryPoint = "random_point")]
     public static partial Point GetRandomPoint();
 
-    [LibraryImport(LibraryName, EntryPoint = "distance")]
+    [LibraryImport(LIBRARY_NAME, EntryPoint = "distance")]
     public static partial double Distance(ref Point one, ref Point two);
 }
 
@@ -58,9 +59,9 @@ public partial class CalculatorWrapper
 [DebuggerDisplay("({X}, {Y})")]
 public struct Point
 {
-    public UInt32 X;
-    public UInt32 Y;
+    public uint X;
+    public uint Y;
 
-    public override readonly string ToString()
+    public readonly override string ToString()
         => $"(x: {X}, y: {Y})";
 }

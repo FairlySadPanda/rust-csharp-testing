@@ -4,7 +4,7 @@ A demonstration of using a Rust library in a C# program. The Rust library is bui
 
 # How to run this program
 
-You'll need Rust and Dotnet 9 installed on your machine.
+You'll need Rust and Dotnet 9 installed on your machine. That means you can type `cargo` and `dotnet` into your CLI and see something other than "what are these strange words you speak".
 
 1. Pull and open this repo.
 2. Run `dotnet build`

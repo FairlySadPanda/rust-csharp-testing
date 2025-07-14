@@ -51,7 +51,7 @@ mod tests {
 
     #[test]
     fn say_hello_test() {
-        let _result = say_hello("Khalid".as_ptr() as *const i8);
+        let _result = say_hello("There".as_ptr() as *const i8);
 
         assert!(true)
     }

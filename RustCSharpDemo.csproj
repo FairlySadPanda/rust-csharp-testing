@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <RootNamespace>rust_csharp_testing</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <Target Name="Rust Build" BeforeTargets="Compile">
+        <Exec Command="echo 'Configuration: $(Configuration)'"/>
+        <Exec Condition="'$(Configuration)' == 'Release'" Command="cargo b --release" WorkingDirectory="./calculator"/>
+        <Exec Condition="'$(Configuration)' != 'Release'" Command="cargo b" WorkingDirectory="./calculator"/>
+    </Target>
+    <ItemGroup>
+        <PackageReference Include="Spectre.Console" Version="0.48.1-preview.0.38"/>
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' " Include="./calculator/target/$(Configuration)/libcalculator.so">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libcalculator.so</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' " Include="./calculator/target/$(Configuration)/calculator.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>calculator.dll</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Condition=" '$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' " Include="./calculator/target/$(Configuration)/libcalculator.dylib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>libcalculator.dylib</TargetPath>
+        </ContentWithTargetPath>
+    </ItemGroup>
+</Project>

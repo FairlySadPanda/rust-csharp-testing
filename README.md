@@ -11,3 +11,7 @@ You'll need Rust and Dotnet 9 installed on your machine.
 3. Hopefully see console output doing some trivial work.
 
 A makefile is supplied for the truly laziest developers.
+
+# Credits
+
+https://khalidabuhakmeh.com/working-with-rust-libraries-from-csharp-dotnet-applications for the bulk of the code.

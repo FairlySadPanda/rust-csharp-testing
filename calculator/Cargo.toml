@@ -1,0 +1,11 @@
+[package]
+name = "calculator"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "calculator"
+crate-type = ["dylib"]
+
+[dependencies]
+rand = "0.8.5"
